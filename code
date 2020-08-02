@@ -1,0 +1,51 @@
+import smtplib
+from email.mime.text import MIMEText
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
+
+jan = Tk()
+jan.title("SendMail")
+jan.geometry("500x400")
+lblTitle = Label(jan, text="sendmail", font=("Century Gothic", 16))
+lblTitle.pack()
+emaillbl = Label(jan, text="To email:")
+emaillbl.pack()
+email = ttk.Entry(jan, width=30)
+email.pack()
+subjectlbl = Label(jan, text="Subject:")
+subjectlbl.pack()
+subject = ttk.Entry(jan, width=30)
+subject.pack()
+messagelbl = Label(jan, text="Message:")
+messagelbl.pack()
+message = Text(jan, width=30, height=13)
+message.pack()
+
+def send():
+ getEmail = email.get()
+ getsubject = subject.get()
+ smtp_ssl_host = 'smtp.gmail.com'
+ smtp_ssl_port = 465
+ # username
+ username = 'email@gmail.com'
+ password = 'password'
+ from_addr = 'email@gmail.com'
+ to_addrs = email.get()
+ message = MIMEText('Message...')
+ message['subject'] = subject.get()
+ message['from'] = from_addr
+ message['to'] = ', '.join(to_addrs)
+ 
+server = smtplib.SMTP_SSL(smtp_ssl_host, smtp_ssl_port)
+ server.login(username, password)
+ server.sendmail(from_addr, to_addrs, message.as_string())
+ server.quit()
+ messagebox.showinfo(title="information", message="Email send with success to {}".format(getEmail))
+sendbtn = ttk.Button(jan, text="Send", width=20, command=send)
+sendbtn.pack()
+
+jan.mainloop()
+
+smtp_ssl_host = 'smtp.gmail.com'
+smtp_ssl_port = 465
