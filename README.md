@@ -1,0 +1,2 @@
+# newsservice
+Sending email (Python)
